@@ -12,7 +12,7 @@
 using namespace std;
 
 
-#define DEBUG
+//#define DEBUG
 
 
 // Add prototypes of helper functions here
@@ -61,19 +61,19 @@ void buildWords(
         return;
     }
 
+    size_t availableLetters = word.size() - pos - fixedLettersRemaining;
+        
+    // the current word has no hope of containing all necessary floating letters
+    if (availableLetters < floating.size()) {
+        return;
+    }
+
     // add letter to word
     if (in[pos] != '-') {
         word[pos] = in[pos];
         buildWords(word, pos+1, in, fixedLettersRemaining-1, floating, solutions, dict);
     }
     else {
-        size_t availableLetters = word.size() - pos - fixedLettersRemaining;
-        
-        // the current word has no hope of containing all necessary floating letters
-        if (availableLetters < floating.size()) {
-            return;
-        }
-
         // all remaining letters must be from the floating letters set
         if (availableLetters == floating.size()) {
             
